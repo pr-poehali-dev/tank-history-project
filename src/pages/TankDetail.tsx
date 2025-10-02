@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { tanksDatabase } from '@/data/tanksData';
 import { extendedTankInfo } from '@/data/tanksExtendedInfo';
+import ArmorScheme3D from '@/components/ArmorScheme3D';
 
 const TankDetail = () => {
   const { id } = useParams();
@@ -133,6 +134,12 @@ const TankDetail = () => {
               </CardContent>
             </Card>
           </div>
+
+          {tank.armor && (
+            <div className="mb-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <ArmorScheme3D armorData={tank.armor} tankName={tank.name} />
+            </div>
+          )}
 
           <Tabs defaultValue="history" className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-8 bg-muted/50">
