@@ -1,35 +1,19 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
+import { tanksDatabase, periods } from '@/data/tanksData';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('main');
+  const navigate = useNavigate();
+  const [selectedPeriod, setSelectedPeriod] = useState('all');
 
-  const tankModels = [
-    {
-      name: 'Т-34',
-      year: '1940-1944',
-      image: '/img/6cb08e5d-bf03-434f-9e96-2b1881b7c967.jpg',
-      description: 'Средний танк, ставший символом Великой Отечественной войны',
-      specs: { weight: '26 т', crew: '4 чел', armor: '45 мм' }
-    },
-    {
-      name: 'КВ-1',
-      year: '1939-1942',
-      image: '/img/84f9f39a-5ea2-4210-880c-6cc4a83f6f0b.jpg',
-      description: 'Тяжёлый танк прорыва, названный в честь Климента Ворошилова',
-      specs: { weight: '47 т', crew: '5 чел', armor: '75 мм' }
-    },
-    {
-      name: 'ИС-2',
-      year: '1943-1945',
-      image: '/img/22a5cfde-edb2-43b2-87ae-69363b22c6a7.jpg',
-      description: 'Тяжёлый танк с мощным 122-мм орудием',
-      specs: { weight: '46 т', crew: '4 чел', armor: '120 мм' }
-    }
-  ];
+  const filteredTanks = selectedPeriod === 'all' 
+    ? tanksDatabase 
+    : tanksDatabase.filter(tank => tank.period === selectedPeriod);
 
   const timeline = [
     { year: '1920', event: 'Начало разработки первых советских танков' },
@@ -174,15 +158,32 @@ const Index = () => {
 
       <section className="py-16 bg-card">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h3 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4 flex items-center justify-center gap-3">
               <Icon name="Archive" size={36} />
-              Легендарные Модели
+              Каталог Техники
             </h3>
-            <p className="text-muted-foreground text-lg">Техника, изменившая ход истории</p>
+            <p className="text-muted-foreground text-lg mb-6">От первых образцов до современных танков</p>
+            
+            <div className="flex justify-center items-center gap-4 mb-8">
+              <span className="text-muted-foreground font-semibold">Фильтр по периоду:</span>
+              <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
+                <SelectTrigger className="w-64 font-display">
+                  <SelectValue placeholder="Выберите период" />
+                </SelectTrigger>
+                <SelectContent>
+                  {periods.map(period => (
+                    <SelectItem key={period.id} value={period.id} className="font-display">
+                      {period.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
+          
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {tankModels.map((tank, idx) => (
+            {filteredTanks.map((tank, idx) => (
               <Card key={idx} className="vintage-frame overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: `${idx * 0.2}s` }}>
                 <div className="aspect-[4/3] overflow-hidden bg-muted">
                   <img 
@@ -211,7 +212,10 @@ const Index = () => {
                       <span className="font-semibold text-foreground">{tank.specs.armor}</span>
                     </div>
                   </div>
-                  <Button className="w-full mt-4 bg-accent hover:bg-accent/90 text-accent-foreground font-display">
+                  <Button 
+                    onClick={() => navigate(`/tank/${tank.id}`)}
+                    className="w-full mt-4 bg-accent hover:bg-accent/90 text-accent-foreground font-display"
+                  >
                     Подробнее
                     <Icon name="ChevronRight" size={16} className="ml-2" />
                   </Button>
