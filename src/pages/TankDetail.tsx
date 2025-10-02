@@ -64,13 +64,29 @@ const TankDetail = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <Card className="vintage-frame overflow-hidden animate-fade-in">
-              <img 
-                src={tank.image} 
-                alt={tank.name}
-                className="w-full h-auto object-cover"
-              />
-            </Card>
+            <div className="space-y-4">
+              <Card className="vintage-frame overflow-hidden animate-fade-in">
+                <img 
+                  src={tank.image} 
+                  alt={tank.name}
+                  className="w-full h-auto object-cover"
+                />
+              </Card>
+              
+              {tank.gallery && tank.gallery.length > 1 && (
+                <div className="grid grid-cols-2 gap-4">
+                  {tank.gallery.slice(1, 3).map((img, idx) => (
+                    <Card key={idx} className="vintage-frame overflow-hidden animate-fade-in" style={{ animationDelay: `${0.1 * (idx + 1)}s` }}>
+                      <img 
+                        src={img} 
+                        alt={`${tank.name} - фото ${idx + 2}`}
+                        className="w-full aspect-video object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <Card className="vintage-frame animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <CardContent className="p-6">

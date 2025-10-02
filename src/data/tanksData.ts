@@ -15,6 +15,7 @@ export interface Tank {
   year: string;
   period: string;
   image: string;
+  gallery?: string[];
   description: string;
   specs: TankSpecs;
   history: string;
@@ -29,7 +30,11 @@ export const tanksDatabase: Tank[] = [
     name: 'МС-1 (Т-18)',
     year: '1927-1931',
     period: 'Зарождение',
-    image: '/img/69b86e08-9842-470f-b6a7-a99b9cacfacf.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80'
+    ],
     description: 'Первый советский серийный танк, разработанный на основе французского Renault FT',
     specs: {
       weight: '5,9 т',
@@ -55,7 +60,11 @@ export const tanksDatabase: Tank[] = [
     name: 'БТ-7',
     year: '1935-1940',
     period: 'Довоенный',
-    image: '/img/8e901d3e-295f-474f-a8f1-49d941cedfb9.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80'
+    ],
     description: 'Быстроходный танк серии БТ (Быстроходный Танк) на базе конструкции Кристи',
     specs: {
       weight: '13,8 т',
@@ -82,7 +91,12 @@ export const tanksDatabase: Tank[] = [
     name: 'Т-34',
     year: '1940-1944',
     period: 'ВОВ',
-    image: '/img/6cb08e5d-bf03-434f-9e96-2b1881b7c967.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&q=80'
+    ],
     description: 'Легендарный средний танк, ставший символом победы в Великой Отечественной войне',
     specs: {
       weight: '26,5 т',
@@ -110,7 +124,11 @@ export const tanksDatabase: Tank[] = [
     name: 'КВ-1',
     year: '1939-1943',
     period: 'ВОВ',
-    image: '/img/84f9f39a-5ea2-4210-880c-6cc4a83f6f0b.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80'
+    ],
     description: 'Тяжёлый танк прорыва, названный в честь Климента Ворошилова',
     specs: {
       weight: '47,5 т',
@@ -138,7 +156,12 @@ export const tanksDatabase: Tank[] = [
     name: 'ИС-2',
     year: '1943-1945',
     period: 'ВОВ',
-    image: '/img/22a5cfde-edb2-43b2-87ae-69363b22c6a7.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&q=80'
+    ],
     description: 'Тяжёлый танк с мощнейшим 122-мм орудием для борьбы с немецкими "Тиграми" и "Пантерами"',
     specs: {
       weight: '46 т',
@@ -164,7 +187,11 @@ export const tanksDatabase: Tank[] = [
     name: 'Т-55',
     year: '1958-1979',
     period: 'Холодная война',
-    image: '/img/2bdf7e2f-b0e1-4fce-9697-7f1506564d6c.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80'
+    ],
     description: 'Самый массовый послевоенный танк, модернизация Т-54',
     specs: {
       weight: '36 т',
@@ -192,7 +219,12 @@ export const tanksDatabase: Tank[] = [
     name: 'Т-72',
     year: '1973-настоящее время',
     period: 'Современность',
-    image: '/img/63abcb19-afc1-42a5-b1c3-87937fe3c77a.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&q=80'
+    ],
     description: 'Основной боевой танк, ставший базой для современных российских танков',
     specs: {
       weight: '41 т',
@@ -220,7 +252,12 @@ export const tanksDatabase: Tank[] = [
     name: 'Т-90М "Прорыв-3"',
     year: '2020-настоящее время',
     period: 'Современность',
-    image: '/img/58b92f17-bf2a-4c22-8f01-750494bb42af.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&q=80'
+    ],
     description: 'Глубокая модернизация Т-90, один из самых современных российских танков',
     specs: {
       weight: '48 т',
@@ -246,7 +283,13 @@ export const tanksDatabase: Tank[] = [
     name: 'Т-14 "Армата"',
     year: '2015-настоящее время',
     period: 'Современность',
-    image: '/img/c0e53458-56a1-4eea-869d-0c667d3f6e7d.jpg',
+    image: 'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1595503240812-c570fe8f4b5f?w=800&q=80',
+      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
+      'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&q=80',
+      'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80'
+    ],
     description: 'Танк нового поколения на универсальной платформе "Армата"',
     specs: {
       weight: '55 т',

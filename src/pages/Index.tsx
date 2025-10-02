@@ -57,15 +57,18 @@ const Index = () => {
               История Танкостроения
             </h1>
             <div className="hidden md:flex gap-6">
-              {['Главная', 'История', 'Хронология', 'Модели'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => setActiveSection(item.toLowerCase())}
-                  className="text-primary-foreground hover:text-accent-foreground transition-colors font-display font-semibold"
-                >
-                  {item}
-                </button>
-              ))}
+              <button
+                onClick={() => navigate('/')}
+                className="text-primary-foreground hover:text-accent-foreground transition-colors font-display font-semibold"
+              >
+                Главная
+              </button>
+              <button
+                onClick={() => navigate('/compare')}
+                className="text-primary-foreground hover:text-accent-foreground transition-colors font-display font-semibold"
+              >
+                Сравнение
+              </button>
             </div>
           </div>
         </div>
@@ -90,13 +93,25 @@ const Index = () => {
               Исследуйте историю инженерной мысли и военного мастерства.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-display">
-                <Icon name="BookOpen" size={20} className="mr-2" />
-                Начать изучение
+              <Button 
+                size="lg" 
+                onClick={() => navigate('/compare')}
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-display"
+              >
+                <Icon name="GitCompare" size={20} className="mr-2" />
+                Сравнить танки
               </Button>
-              <Button size="lg" variant="outline" className="border-2 font-display">
-                <Icon name="Clock" size={20} className="mr-2" />
-                Хронология
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 font-display"
+                onClick={() => {
+                  const element = document.getElementById('catalog');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <Icon name="Archive" size={20} className="mr-2" />
+                Каталог техники
               </Button>
             </div>
           </div>
@@ -156,7 +171,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-card">
+      <section id="catalog" className="py-16 bg-card">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h3 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4 flex items-center justify-center gap-3">
