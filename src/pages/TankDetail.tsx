@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { tanksDatabase } from '@/data/tanksData';
+import { extendedTankInfo } from '@/data/tanksExtendedInfo';
 
 const TankDetail = () => {
   const { id } = useParams();
@@ -134,18 +135,26 @@ const TankDetail = () => {
           </div>
 
           <Tabs defaultValue="history" className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <TabsList className="grid w-full grid-cols-3 mb-8 bg-muted/50">
-              <TabsTrigger value="history" className="font-display text-base">
-                <Icon name="BookOpen" size={18} className="mr-2" />
-                История создания
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-8 bg-muted/50">
+              <TabsTrigger value="history" className="font-display text-sm md:text-base">
+                <Icon name="BookOpen" size={18} className="mr-1 md:mr-2" />
+                История
               </TabsTrigger>
-              <TabsTrigger value="combat" className="font-display text-base">
-                <Icon name="Flame" size={18} className="mr-2" />
+              <TabsTrigger value="combat" className="font-display text-sm md:text-base">
+                <Icon name="Flame" size={18} className="mr-1 md:mr-2" />
                 Боевое применение
               </TabsTrigger>
-              <TabsTrigger value="production" className="font-display text-base">
-                <Icon name="Factory" size={18} className="mr-2" />
+              <TabsTrigger value="production" className="font-display text-sm md:text-base">
+                <Icon name="Factory" size={18} className="mr-1 md:mr-2" />
                 Производство
+              </TabsTrigger>
+              <TabsTrigger value="crew" className="font-display text-sm md:text-base">
+                <Icon name="Users" size={18} className="mr-1 md:mr-2" />
+                Экипаж
+              </TabsTrigger>
+              <TabsTrigger value="details" className="font-display text-sm md:text-base">
+                <Icon name="Info" size={18} className="mr-1 md:mr-2" />
+                Подробности
               </TabsTrigger>
             </TabsList>
 
@@ -200,6 +209,187 @@ const TankDetail = () => {
                   <p className="text-lg text-foreground leading-relaxed whitespace-pre-line">
                     {tank.production}
                   </p>
+                  
+                  {tank.productionDetails && (
+                    <div className="mt-8 space-y-6">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-muted/30 rounded-lg">
+                          <h4 className="font-bold text-foreground mb-2">Всего выпущено</h4>
+                          <p className="text-2xl font-display text-accent">{tank.productionDetails.totalProduced}</p>
+                        </div>
+                        <div className="p-4 bg-muted/30 rounded-lg">
+                          <h4 className="font-bold text-foreground mb-2">Годы производства</h4>
+                          <p className="text-2xl font-display text-accent">{tank.productionDetails.productionYears}</p>
+                        </div>
+                      </div>
+                      
+                      {tank.productionDetails.factories && (
+                        <div>
+                          <h4 className="text-xl font-bold text-foreground mb-3">Заводы-изготовители</h4>
+                          <ul className="space-y-2">
+                            {tank.productionDetails.factories.map((factory, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <Icon name="Factory" size={18} className="text-primary mt-1" />
+                                <span className="text-foreground">{factory}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="crew">
+              <Card className="vintage-frame">
+                <CardContent className="p-8">
+                  <h3 className="text-3xl font-display font-bold text-foreground mb-6 flex items-center gap-2">
+                    <Icon name="Users" size={32} />
+                    Экипаж танка
+                  </h3>
+                  
+                  {tank.crew && (
+                    <div className="space-y-4">
+                      {Object.entries(tank.crew).map(([role, person]) => (
+                        <div key={role} className="flex items-start gap-3 p-4 bg-muted/20 rounded-lg">
+                          <Icon name="UserCircle" size={24} className="text-primary mt-1" />
+                          <div>
+                            <h4 className="font-bold text-foreground capitalize">{role === 'commander' ? 'Командир' : role === 'driver' ? 'Механик-водитель' : role === 'gunner' ? 'Наводчик' : role === 'loader' ? 'Заряжающий' : 'Радист'}</h4>
+                            <p className="text-muted-foreground">{person}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {tank.armor && (
+                    <div className="mt-8">
+                      <h4 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
+                        <Icon name="Shield" size={24} />
+                        Детальное бронирование
+                      </h4>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-muted/30 rounded-lg">
+                          <p className="text-sm text-muted-foreground mb-1">Лоб корпуса</p>
+                          <p className="text-xl font-bold text-foreground">{tank.armor.front}</p>
+                        </div>
+                        <div className="p-4 bg-muted/30 rounded-lg">
+                          <p className="text-sm text-muted-foreground mb-1">Борт</p>
+                          <p className="text-xl font-bold text-foreground">{tank.armor.side}</p>
+                        </div>
+                        <div className="p-4 bg-muted/30 rounded-lg">
+                          <p className="text-sm text-muted-foreground mb-1">Корма</p>
+                          <p className="text-xl font-bold text-foreground">{tank.armor.rear}</p>
+                        </div>
+                        <div className="p-4 bg-muted/30 rounded-lg">
+                          <p className="text-sm text-muted-foreground mb-1">Башня</p>
+                          <p className="text-xl font-bold text-foreground">{tank.armor.turret}</p>
+                        </div>
+                      </div>
+                      <p className="mt-3 text-sm text-muted-foreground">Тип брони: {tank.armor.type}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="details">
+              <Card className="vintage-frame">
+                <CardContent className="p-8">
+                  <h3 className="text-3xl font-display font-bold text-foreground mb-6 flex items-center gap-2">
+                    <Icon name="FileText" size={32} />
+                    Дополнительная информация
+                  </h3>
+                  
+                  {tank.design && (
+                    <div className="mb-8">
+                      <h4 className="text-2xl font-display font-bold text-foreground mb-4">Разработка</h4>
+                      <div className="space-y-3">
+                        <p><span className="font-bold">Разработчик:</span> {tank.design.developer}</p>
+                        {tank.design.chiefDesigner && (
+                          <p><span className="font-bold">Главный конструктор:</span> {tank.design.chiefDesigner}</p>
+                        )}
+                        <p><span className="font-bold">Период разработки:</span> {tank.design.developmentPeriod}</p>
+                        <p className="text-muted-foreground">{tank.design.concept}</p>
+                      </div>
+                      
+                      {tank.design.innovations && tank.design.innovations.length > 0 && (
+                        <div className="mt-6">
+                          <h5 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                            <Icon name="Lightbulb" size={20} className="text-accent" />
+                            Инновации
+                          </h5>
+                          <ul className="space-y-2">
+                            {tank.design.innovations.map((innovation, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <div className="w-2 h-2 rounded-full bg-accent mt-2"></div>
+                                <span className="text-foreground">{innovation}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  
+                  {tank.trivia && (
+                    <div className="mt-8">
+                      <h4 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
+                        <Icon name="Sparkles" size={24} />
+                        Интересные факты
+                      </h4>
+                      {tank.trivia.nickname && (
+                        <p className="mb-3"><span className="font-bold">Прозвище:</span> {tank.trivia.nickname}</p>
+                      )}
+                      <ul className="space-y-3">
+                        {tank.trivia.interestingFacts.map((fact, idx) => (
+                          <li key={idx} className="flex items-start gap-3 p-3 bg-accent/10 rounded-lg">
+                            <Icon name="Star" size={18} className="text-accent mt-1" />
+                            <span className="text-foreground">{fact}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      {tank.trivia.museums && tank.trivia.museums.length > 0 && (
+                        <div className="mt-6">
+                          <h5 className="font-bold text-foreground mb-3">Где увидеть</h5>
+                          <ul className="space-y-2">
+                            {tank.trivia.museums.map((museum, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <Icon name="MapPin" size={18} className="text-primary mt-1" />
+                                <span className="text-foreground">{museum}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  
+                  {tank.modificationDetails && tank.modificationDetails.length > 0 && (
+                    <div className="mt-8">
+                      <h4 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
+                        <Icon name="GitBranch" size={24} />
+                        Модификации (детально)
+                      </h4>
+                      <div className="space-y-4">
+                        {tank.modificationDetails.map((mod, idx) => (
+                          <div key={idx} className="p-4 bg-muted/20 rounded-lg border-l-4 border-accent">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h5 className="font-bold text-foreground">{mod.name}</h5>
+                              {mod.year && <Badge variant="outline">{mod.year}</Badge>}
+                            </div>
+                            <p className="text-muted-foreground mb-2">{mod.changes}</p>
+                            {mod.produced && (
+                              <p className="text-sm text-muted-foreground">Выпущено: {mod.produced}</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
