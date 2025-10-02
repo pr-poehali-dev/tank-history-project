@@ -7,7 +7,6 @@ import Icon from '@/components/ui/icon';
 import { tanksDatabase } from '@/data/tanksData';
 import { extendedTankInfo } from '@/data/tanksExtendedInfo';
 import ArmorScheme3D from '@/components/ArmorScheme3D';
-import PenetrationSimulator from '@/components/PenetrationSimulator';
 
 const TankDetail = () => {
   const { id } = useParams();
@@ -139,16 +138,6 @@ const TankDetail = () => {
           {tank.armor && (
             <div className="mb-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <ArmorScheme3D armorData={tank.armor} tankName={tank.name} />
-            </div>
-          )}
-
-          {tank.armor && (
-            <div className="mb-12 animate-fade-in" style={{ animationDelay: '0.35s' }}>
-              <PenetrationSimulator 
-                tankName={tank.name}
-                tankPeriod={tank.year}
-                armorThickness={parseInt(tank.armor.front.match(/(\d+)/)?.[1] || '45')}
-              />
             </div>
           )}
 
