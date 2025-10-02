@@ -64,10 +64,11 @@ const Index = () => {
                 Главная
               </button>
               <button
-                onClick={() => navigate('/compare')}
-                className="text-primary-foreground hover:text-accent-foreground transition-colors font-display font-semibold"
+                onClick={() => navigate('/comparison')}
+                className="text-primary-foreground hover:text-accent-foreground transition-colors font-display font-semibold flex items-center gap-2"
               >
-                Сравнение
+                <Icon name="GitCompare" size={20} />
+                Россия vs Мир
               </button>
             </div>
           </div>
